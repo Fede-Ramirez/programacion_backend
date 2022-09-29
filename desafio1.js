@@ -6,52 +6,55 @@ class Usuario {
     constructor(nombre, apellido, libros, mascotas) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.libros = libros;
-        this.mascotas = mascotas;
+        this.libros = [];
+        this.mascotas = [];
     }   
 
     getFullName() {
-        return console.log(`El usuario es ${this.nombre} ${this.apellido}`);
+        return (` ${this.nombre} ${this.apellido}`);
     }
 
     addMascota(mascota) {
         this.mascotas.push(mascota);
-        console.log(this.mascotas)
     }
 
     countMascotas(){
-        return console.log(this.mascotas.length); 
+        return this.mascotas.length; 
+    }
+
+    showMascotas(){
+        return this.mascotas;
     }
 
     addBook(nombre, autor) {
-        this.libros.push({
+        const book = {
             nombre: nombre,
             autor: autor
-        });
-        console.log(this.libros)
+        };
+        this.libros.push(book)
+    }
+
+    showBooks(){
+        return this.libros;
     }
 
     getBookNames() {
-        return console.log(this.libros.map(libro => libro.nombre));
+        return this.libros.map(libro => libro.nombre);
     }
 }
 
 // Creo mi usuario con valores arbitrarios
 
-const usuario = new Usuario (
-    "Federico",
-    "Ramirez",
-    [
-        {nombre:"El Resplandor", autor: "Stephen King"},
-        {nombre: "Dune", autor: "Frank Herbert"},
-    ],
-    ["perro", "gato"]
-)
+const usuario = new Usuario ("Federico","Ramirez",);
 
 // Invocación de métodos
 
-usuario.getFullName();
+console.log(`El usuario es: ${usuario.getFullName()}`);
 usuario.addMascota("conejo");
-usuario.countMascotas();
+usuario.addMascota("gata");
+console.log(`El usuario tiene ${usuario.countMascotas()} mascotas`);
+console.log(`Mascotas del usurio: ${usuario.showMascotas()}`);
 usuario.addBook("Las aventuras de Huckleberry Finn", "Mark Twain");
-usuario.getBookNames();
+usuario.addBook("El Resplandor", "Stephen King");
+console.log(usuario.showBooks());
+console.log(`Nombres de los libros: ${usuario.getBookNames()}`);
