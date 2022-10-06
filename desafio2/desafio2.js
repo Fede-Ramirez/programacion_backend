@@ -1,6 +1,5 @@
 // Desafío 2: Manejo de archivos en JavaScript
 
-
 // Hago los imports de la librería
 
 const filesystem = require('fs');
@@ -37,6 +36,7 @@ class Contenedor {
         const indice = productos.findIndex(producto => producto.id === id)
         
         if (indice < 0) {
+            console.log(null);
             throw new Error ("El producto solicitado no existe"); 
         }
         
@@ -59,6 +59,7 @@ class Contenedor {
         }
         
         productos.push(productoNuevo);
+        console.log(`El id del producto nuevo es ${productoNuevo.id}`);
         
         return await this.guardarProductos(productos);
     }
