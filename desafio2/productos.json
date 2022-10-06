@@ -1,7 +1,10 @@
-[
-	{
-		"title": "carne picada 1kg",
-		"price": 1000,
-		"id": 1
-	}
-]
+[{
+    "title": "fideos spaguetti",
+    "price": 156,
+    "id": 1
+},
+{
+    "title": "carne picada ",
+    "price": 1000,
+    "id": 2
+}]

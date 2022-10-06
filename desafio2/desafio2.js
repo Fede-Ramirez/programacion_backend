@@ -15,27 +15,16 @@ class Contenedor {
     }
     
     // Métodos del constructor
-    // Contemplamos la existencia del archivo o no
-    validateExistsFile = async () => {
-        try {
-            const stat = await filesystem.promises.stat(this.archivo)
-            console.log(stat)
-        }
-        catch (err) {
-            await filesystem.promises.writeFile(this.archivo, JSON.stringify([])); 
-        }
-    }
     
     obtenerProductos = async () => {
-        await validateExistsFile();
         const dato = await filesystem.promises.readFile(this.archivo, 'utf-8');
         return JSON.parse(dato)
     }    
 
     guardarProductos = async (productos) => {
-        await validateExistsFile();
         const dato = JSON.stringify(productos, null, '\t');
         await filesystem.promises.writeFile(this.archivo, dato);
+        console.log(`Nuestro array de productos queda así: ${dato}`);
     }
 
     getAll = async () => {
@@ -44,14 +33,14 @@ class Contenedor {
     }
 
     getById = async (id) => {
-        const productos = await obtenerProductos();
+        const productos = await this.obtenerProductos();
         const indice = productos.findIndex(producto => producto.id === id)
         
         if (indice < 0) {
             throw new Error ("El producto solicitado no existe"); 
         }
         
-        return array[indice];
+        return productos[indice];
     }
 
     save = async (datos) => {
@@ -86,9 +75,10 @@ class Contenedor {
             return; 
         }
         
-        productos.splice(indice, 1);
-        
-        await guardarProductos(productos);
+        const productoEliminado = productos.splice(indice, 1);
+        console.log(productoEliminado);
+
+        await this.guardarProductos(productos);
     }
 }
 
@@ -96,18 +86,28 @@ funcionPrincipal = async () => {
     const instancia = new Contenedor('productos');
 
     // Llamado a getAll
-    console.log('Los productos son');
+    console.log('1-Los productos son');
     const misProductos = await instancia.getAll();
-    console.log(misProductos)
+    console.log(misProductos);
     
     // Llamado a save
-    console.log('Guardo un producto')
-    const nuevoProducto = {title: 'tapas de empanadas', price: 243}
+    console.log('2-Guardo un producto');
+    const nuevoProducto = {title: 'tomates 1kg', price: 300};
+    console.log(nuevoProducto);
     await instancia.save(nuevoProducto);
-    console.log(await getAll());
 
     // Busco un producto por su id
-    console.log('el resultado de la búsqueda es')
+    console.log('3-el resultado de la búsqueda es');
+    const productoId = await instancia.getById(2);
+    console.log(productoId);
+
+    // Elimino un producto por su id
+    console.log('4-Elimino un producto')
+    await instancia.deleteById(3);
+
+    // Elimino todos los productos
+    console.log('5-Se eliminan todos los productos')
+    await instancia.deleteAll();
 }
 
-funcionPrincipal()
+funcionPrincipal();
