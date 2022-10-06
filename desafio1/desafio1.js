@@ -53,7 +53,7 @@ console.log(`El usuario es: ${usuario.getFullName()}`);
 usuario.addMascota("conejo");
 usuario.addMascota("gata");
 console.log(`El usuario tiene ${usuario.countMascotas()} mascotas`);
-console.log(`Mascotas del usurio: ${usuario.showMascotas()}`);
+console.log(`Mascotas del usuario: ${usuario.showMascotas()}`);
 usuario.addBook("Las aventuras de Huckleberry Finn", "Mark Twain");
 usuario.addBook("El Resplandor", "Stephen King");
 console.log(usuario.showBooks());
