@@ -1,0 +1,18 @@
+{
+  "name": "desafio3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "desafio3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon desafio3.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,12 +1,47 @@
-// Desafío 2: Manejo de archivos en JavaScript
+// Realizo los imports para el desafío
 
-// Hago los imports de la librería
-
+const express = require('express');
 const filesystem = require('fs');
-const { get } = require('http');
-const path = require('path');  
+const path = require('path');
+const app = express();
+const PORT = 8080;
 
-// Creo la class
+// Realizo las rutas 
+
+app.get('/',(req, res)=>{
+    res.json('Desafío 3')
+});
+
+app.get('/productos', (req, res)=>{
+    const misProductos = productos.getAll()
+    .then((producto) => {
+        res.json(producto)
+    })
+    .catch((err)=>{
+        console.log('error al  mostrar los productos')
+    })
+})
+
+app.get('/productoRandom', (req, res)=>{
+    const random = (min, max) => {
+        return Math.floor((Math.random() * (max - min + 1)) + min)
+    }
+
+    const productoRandom = productos.getAll()
+    .then((producto)=>{
+        res.json(producto[random(0, producto.length - 1)])
+    })
+    .catch((err)=>{
+        console.log('error al mostrar el producto')
+    })
+});
+
+const server = app.listen(PORT, ()=>{
+    console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
+});
+server.on("error", error => console.log(`Error en el servidor ${error}`))
+
+// Traigo la class del desafío anterior
 
 class Contenedor {
     constructor(archivo) {
@@ -83,32 +118,4 @@ class Contenedor {
     }
 }
 
-funcionPrincipal = async () => {
-    const instancia = new Contenedor('productos');
-
-    // Llamado a getAll
-    console.log('1-Los productos son');
-    const misProductos = await instancia.getAll();
-    console.log(misProductos);
-    
-    // Llamado a save
-    console.log('2-Guardo un producto');
-    const nuevoProducto = {title: 'tomates 1kg', price: 300};
-    console.log(nuevoProducto);
-    await instancia.save(nuevoProducto);
-
-    // Busco un producto por su id
-    console.log('3-el resultado de la búsqueda es');
-    const productoId = await instancia.getById(2);
-    console.log(productoId);
-
-    // Elimino un producto por su id
-    console.log('4-Elimino un producto')
-    await instancia.deleteById(4);
-
-    // Elimino todos los productos
-    console.log('5-Se eliminan todos los productos')
-    await instancia.deleteAll();
-}
-
-funcionPrincipal();
+const productos = new Contenedor('productos');

@@ -1,0 +1,16 @@
+[{
+    "title": "fideos spaguetti",
+    "price": 156,
+    "id": 1
+},
+{
+    "title": "carne picada",
+    "price": 1000,
+    "id": 2
+},
+{
+    "title": "pan rallado",
+    "price": 150,
+    "id": 3
+}
+]
