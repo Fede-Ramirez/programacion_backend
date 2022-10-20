@@ -17,10 +17,16 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-    res.json({
-        msg: ProductsController.save()
-    });
+router.post('/', async (req, res, next) => {
+    const { body } = req;
+    try{
+        const data = await ProductsController.save(req.body);
+        res.json({
+            msg: data
+        });
+    } catch (err) {
+        next (err);
+    }
 });
 
 router.post('/:id', (req, res) => {

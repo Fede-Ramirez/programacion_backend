@@ -1,5 +1,5 @@
 const createError = require('http-errors');
-// const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 class ProductsAPI {
     constructor () {
@@ -21,6 +21,10 @@ class ProductsAPI {
 
         return indice >= 0;
     }
+
+    validateBody(data) {
+        if(!data.title || !data.price || typeof data.title !== "string" || typeof data.price !== "number") createError(400, 'datos invalidos');
+    }
     
     getAll() {
         return this.productos;
@@ -36,13 +40,30 @@ class ProductsAPI {
         return this.productos[indice];
     }
     
-    save() {
-        return 'save products';
+    save(data) {
+        this.validateBody(data);   
+        const nuevoProducto = {
+            title: data.title,
+            price: data.price,
+            id: uuidv4(),
+        };
+
+        this.productos.push(nuevoProducto);
+        return nuevoProducto;
     }
     
-    findByIdAndUpdate() {
+    findByIdAndUpdate(id, newData) {
+        const exists = ds.exists(id);  
+
+        if(!exists) throw createError(404, 'El producto no existe');
+        this.validateBody(newData);
+
+        const indice = this.productos.findIndex(producto => producto.id == id);
+
+        const oldProduct = this.productos[indice];
         return 'save product by id';
     }
+
     
     findByIdAndDelete() {
         return 'delete product';
