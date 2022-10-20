@@ -5,40 +5,34 @@ class ProductsAPI {
     constructor () {
         this.productos = [{
             id: '05a8a348-a39e-4c5d-9056-6ed11fb28dff',
-            title: 'remera',
-            price: 2000
+            title: 'regla 20cm',
+            price: 50
         }];
-    }
+    };
     
     exists (id) {
         const indice = this.productos.findIndex(producto => producto.id == id);
-
-        // if (indice < 0) {
-        //     return false;
-        // } else {
-        //     return true;
-        // }
-
+        
         return indice >= 0;
-    }
+    };
 
     validateBody(data) {
-        if(!data.title || !data.price || typeof data.title !== "string" || typeof data.price !== "number") createError(400, 'datos invalidos');
-    }
+        if(!data.title || !data.price || typeof data.title !== "string" || typeof data.price !== "number") throw createError(400, 'datos invalidos');
+    };
     
     getAll() {
         return this.productos;
-    }
+    };
     
     getById(id) {
-        const exists = ds.exists(id);  
+        const exists = this.exists(id);  
 
         if(!exists) throw createError(404, 'El producto no existe');
 
         const indice = this.productos.findIndex(producto => producto.id == id);
 
         return this.productos[indice];
-    }
+    };
     
     save(data) {
         this.validateBody(data);   
@@ -50,25 +44,37 @@ class ProductsAPI {
 
         this.productos.push(nuevoProducto);
         return nuevoProducto;
-    }
+    };
     
     findByIdAndUpdate(id, newData) {
-        const exists = ds.exists(id);  
-
+        const exists = this.exists(id);  
         if(!exists) throw createError(404, 'El producto no existe');
+
         this.validateBody(newData);
 
         const indice = this.productos.findIndex(producto => producto.id == id);
 
         const oldProduct = this.productos[indice];
-        return 'save product by id';
-    }
 
-    
-    findByIdAndDelete() {
-        return 'delete product';
-    }
-}
+        const nuevoProducto = {
+            title: newData.title,
+            price: newData.price,
+            id: oldProduct.id,
+        };  
+
+        this.productos.splice(indice, 1, nuevoProducto);
+        return nuevoProducto;
+    };
+
+    findByIdAndDelete(id) {
+        const exists = this.exists(id);
+        if(!exists) return;
+
+        const indice = this.productos.findIndex(producto => producto.id == id);
+
+        this.productos.splice(indice, 1);
+    };
+};
 
 const productsApiInstance = new ProductsAPI();
 

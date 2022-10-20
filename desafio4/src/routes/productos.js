@@ -1,44 +1,52 @@
 const { Router } = require('express');
+const asyncHandler = require('express-async-handler');
 const { ProductsController } = require('../controller/productos');
 
 const router = Router();
 
-router.get('/', (req, res) => {
+const funcionAsyncGetAll = async (req, res) => {
+    const products = await ProductsController.getAll();
     res.json({
-        msg: ProductsController.getAll()
+        msg: products
     });
-});
+};
 
-router.get('/:id', (req, res) => {
+const funcionAsyncGetById = async (req, res) => {
     const id  = req.params.id;
-    const product = ProductsController.getById(id);
+    const product = await ProductsController.getById(id);
     res.json({
         msg: product
     });
-});
+};
 
-router.post('/', async (req, res, next) => {
+const funcionAsyncPost = async (req, res) => {
     const { body } = req;
-    try{
-        const data = await ProductsController.save(req.body);
-        res.json({
-            msg: data
-        });
-    } catch (err) {
-        next (err);
-    }
-});
-
-router.post('/:id', (req, res) => {
+    const data = await ProductsController.save(body);   
     res.json({
-        msg: ProductsController.findByIdAndUpdate()
+        msg: data
     });
-});
+};
 
-router.delete('/:id', (req, res) => {
+const funcionAsyncPut = async (req, res) => {
+    const id  = req.params.id;
+    const { body } = req;
+    const data = await ProductsController.findByIdAndUpdate(id, body);
     res.json({
-        msg: ProductsController.findByIdAndDelete()
+        msg: data
     });
-});
+};
+
+const funcionAsyncDelete = async (req, res) => {
+    const id  = req.params.id;
+    res.json({
+        msg: ProductsController.findByIdAndDelete(id)
+    });
+};
+
+router.get('/', asyncHandler(funcionAsyncGetAll));
+router.get('/:id', asyncHandler(funcionAsyncGetById));
+router.post('/', asyncHandler(funcionAsyncPost));
+router.put('/:id', asyncHandler(funcionAsyncPut));
+router.delete('/:id', asyncHandler(funcionAsyncDelete));
 
 module.exports = router;

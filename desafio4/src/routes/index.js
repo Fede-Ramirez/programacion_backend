@@ -1,14 +1,10 @@
 const { Router } = require('express');
 const productsRouter = require('./productos');
+const formRouter = require('./formulario');
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.json({
-        msg: "rutas en orden"
-    });
-});
-
 router.use('/products', productsRouter);
+router.use('/form', formRouter);
 
 module.exports = router;
