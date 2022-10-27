@@ -2,46 +2,43 @@
 	{
 		"title": "smart tv 50 pulgadas noblex",
 		"price": 100000,
+		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/display2.png",
 		"id": 1
 	},
 	{
 		"title": "samsung galaxy flip 4",
 		"price": 260000,
+		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/black_iphone.png",
 		"id": 2
 	},
 	{
-		"title": "notebook gamer hp",
-		"price": 270000,
+		"title": "teclado samsung",
+		"price": 30000,
+		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/keyboard.png",
 		"id": 3
 	},
 	{
 		"title": "iphone 13",
 		"price": 1000000,
+		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/iphone_white.png",
 		"id": 4
 	},
 	{
 		"id": 5,
 		"title": "macbook pro",
+		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/macbook.png",
 		"price": 425000
 	},
 	{
 		"title": "ipad pro",
 		"price": 220000,
+		"img": "https://cdn1.iconfinder.com/data/icons/apple-mania/512/ipad_pro_pencil-1024.png",
 		"id": 6
 	},
 	{
-		"title": "iPhone12",
-		"price": 324000,
+		"title": "Computadora de escritorio",
+		"price": 300000,
+		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/imac2.png",
 		"id": 7
-	},
-	{
-		"title": "Notebook exo",
-		"price": 28000,
-		"id": 8
-	},
-	{
-		"title": "Auriculares samsung",
-		"price": 3000,
-		"id": 9
 	}
 ]

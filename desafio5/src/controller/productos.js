@@ -38,6 +38,7 @@ class ProductsAPI {
         const nuevoProducto = {
             title: data.title,
             price: parseInt(data.price),
+            img: data.img,
             id: id
         }
 
