@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos cargados</title>
+</head>
+<body>
+    <% if (data.length > 0) { %>
+        <table style="width:50%">
+            <tr>
+                <th id="id">ID</th>
+                <th id="nombreProducto">Producto</th>
+                <th id="precioProducto">Precio</th>
+            </tr>
+            <% data.forEach(producto=> { %>
+                <tr>
+                    <td>
+                        <%= producto.id %>
+                    </td>
+                    <td>
+                        <%= producto.title %>
+                    </td>
+                    <td>
+                        <%= producto.price %>
+                    </td>
+                </tr>
+            <% }) %>
+        </table> 
+    <% } else {%>
+        <p>No hay datos</p>
+    <% } %>
+</body>
+</html>

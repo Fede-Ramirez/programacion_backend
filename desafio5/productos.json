@@ -1,0 +1,42 @@
+[
+	{
+		"title": "smart tv 50 pulgadas noblex",
+		"price": 100000,
+		"id": 1
+	},
+	{
+		"title": "samsung galaxy flip 4",
+		"price": 260000,
+		"id": 2
+	},
+	{
+		"title": "notebook gamer hp",
+		"price": 270000,
+		"id": 3
+	},
+	{
+		"title": "iphone 13",
+		"price": 1000000,
+		"id": 4
+	},
+	{
+		"id": 5,
+		"title": "macbook pro",
+		"price": 425000
+	},
+	{
+		"title": "ipad pro",
+		"price": 220000,
+		"id": 6
+	},
+	{
+		"title": "iPhone12",
+		"price": 324000,
+		"id": 7
+	},
+	{
+		"title": "Notebook exo",
+		"price": 28000,
+		"id": 8
+	}
+]
