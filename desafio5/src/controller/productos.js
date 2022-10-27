@@ -2,7 +2,7 @@ const filesystem = require('fs');
 const path = require('path');
 
 class ProductsAPI {
-  
+
     async obtenerJSON(){
         const viewsFolderPath = path.resolve(__dirname, '../../productos.json')
         const data = await filesystem.promises.readFile(viewsFolderPath,'utf-8');
@@ -51,7 +51,7 @@ class ProductsAPI {
         return productos
     }
     
-  
+
     async getById(id){
         const productos = await this.obtenerJSON();
         const indice  = productos.find((producto) => producto.id == id);
@@ -90,12 +90,6 @@ class ProductsAPI {
         console.log(`Se removio el producto con id:${id} de sus productos`);
         return await this.actualizarArchivo(productos);
     }
-    // async deleteAll(){
-    //     const productos = await this.obtenerJson();
-    //     productos.splice(0);
-    //     console.log('Se borraron todos los productos de su lista');
-    //     return await this.actualizarArchivo(productos);
-    // }
 }
 
 const productsApiInstance = new ProductsAPI();
