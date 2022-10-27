@@ -38,5 +38,10 @@
 		"title": "Notebook exo",
 		"price": 28000,
 		"id": 8
+	},
+	{
+		"title": "Auriculares samsung",
+		"price": 3000,
+		"id": 9
 	}
 ]
