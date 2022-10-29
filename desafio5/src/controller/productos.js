@@ -44,8 +44,6 @@ class ProductsAPI {
 
         productos.push(nuevoProducto);
 
-        console.log(`se agrego ${nuevoProducto.title} a la lista de productos`);
-
         this.actualizarArchivo(productos)
 
         return productos
@@ -87,7 +85,6 @@ class ProductsAPI {
     async findByIdAndDelete(id){
         const productos = await this.obtenerJSON();
         productos.splice(id - 1,1);
-        console.log(`Se removio el producto con id:${id} de sus productos`);
         return await this.actualizarArchivo(productos);
     }
 }
