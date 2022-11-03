@@ -1,0 +1,9 @@
+<div id="messageContainer">
+    <% mensajesJSON.forEach(usuario => { %>
+        <div>
+            <p><%= usuario.email %></p>
+            <span><%= usuario.time %></span>
+            <p><%= usuario.msg %></p>
+        </div>
+    <% }) %> 
+</div>

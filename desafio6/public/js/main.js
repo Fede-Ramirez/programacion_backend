@@ -1,76 +1,94 @@
-const chatForm = document.getElementById('chat-form');
-const chatMessages = document.querySelector('.chat-messages');
-const msg = document.getElementById('msg');
-const roomName = document.getElementById('room-name');
-const usersList = document.getElementById('users');
-//GET Username & Room from url using qs CDN (https://cdnjs.com/libraries/qs)
-const qsData = Qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-});
-
-console.log(qsData);
-
-// const { username, room } = qsData;
+const title = document.querySelector('#title');
+const price = document.querySelector('#price');
+const img = document.querySelector('#img');
+const product = document.querySelector('#productsForm');
+const tableBody = document.querySelector('#tableBody');
+const chat = document.querySelector('#messagesForm');
+const email = document.querySelector('#email');
+const message = document.querySelector('#message');
+const messageBox = document.querySelector('#messageContainer');
 
 const socket = io();
-//Join to the room
-socket.emit('JoinRoom', qsData);
 
-socket.on('message', (data) => {
-    //add the message to the chat Window
-    outputMessage(data);
-    //Automatically scroll down to the last message
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+product.addEventListener('submit', (e) =>{
+    e.preventDefault()
+
+    let newProduct = {
+        title: title.value,
+        price: price.value,
+        img: img.value
+    }
+    socket.emit('addProduct', newProduct)
+
+        title.value = ""
+        price.value = ""
+        img.value = ""
 });
 
-//Message submit
-chatForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+const addProductToTable = (data) =>{
+    const trInput = document.createElement('tr');
+    const id = document.createElement('td');
+    const title = document.createElement('td');
+    const price = document.createElement('td');
+    const imgURL = document.createElement('td');
+    const tdImage = document.createElement('td');
+    const image = document.createElement('img');
 
-    //Emit Message to the server
-    socket.emit('chatMessage', msg.value);
+    
+    id.innerText = data.id;
+    title.innerText = data.title;
+    price.innerText = data.price;
+    image.setAttribute('src', data.imgURL);
+    image.setAttribute('alt', 'Imagen no disponible'); 
+    
+    trInput.appendChild(id);
+    trInput.appendChild(title);
+    trInput.appendChild(price);
+    trInput.appendChild(tdImage);
+    tdImage.appendChild(image);
 
-    //Clear submitted message
-    msg.value = '';
-});
 
-//Output Message to DOM
-/**
- * We are going to create the following html output for each message
- *      <div class="message">
- *         <p class="meta">Brad <span>9:12pm</span></p>
- *         <p class="text">
- *           Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
- *           repudiandae.
- *         </p>
- *       </div>
- */
-
-function outputMessage(message) {
-    const div = document.createElement('div');
-    div.classList.add('message');
-    div.innerHTML = `
-    <p class="meta">${message.username} <span> ${message.time}</span></p>
-    <p class="text"> ${message.text} </p>`;
-
-    chatMessages.appendChild(div);
+    tableBody.appendChild(trInput);
 }
 
-//Get Room's Info
-socket.on('roomUsers', (roomInfo) => {
-    const { room, users } = roomInfo;
+socket.on('addTable',(data) =>{
+    addProductToTable(data);
+})
 
-    outputRoomName(room);
-    outputUsers(users);
-});
+chat.addEventListener('submit', (e) =>{
+    e.preventDefault()
 
-//add Room Name
-function outputRoomName(room) {
-    roomName.innerText = room;
+    let newMessage = {
+        email: email.value,
+        msg: message.value
+    }
+
+    socket.emit('newMessage', newMessage)
+
+    email.value= ''
+    message.value = ''
+})
+
+const addNewMessage = (data) =>{
+    const messageContainer = document.createElement('div');
+    const messageEmail = document.createElement('p');
+    const messageTime = document.createElement('span');
+    const messageText = document.createElement('p');
+
+    messageContainer.setAttribute('class', 'message');
+    messageEmail.setAttribute('class', 'meta');
+    messageEmail.innerText = data.email;
+    messageText.setAttribute('class', 'text');
+    messageText.innerText = data.msg;
+    messageTime.innerText = data.time;
+
+    messageContainer.appendChild(messageEmail);
+    messageEmail.appendChild(messageTime);
+    messageContainer.appendChild(messageText);
+
+    messageBox.appendChild(messageContainer);
 }
 
-function outputUsers(users) {
-    const arrayofUsers = users.map((aUser) => `<li>${aUser.username}</li>`);
-    console.log(arrayofUsers);
-    usersList.innerHTML = arrayofUsers.join('');
-}
+socket.on('renderMessage', (data) =>{
+    addNewMessage(data);
+})

@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos cargados</title>
+</head>
+<body>
+    <% if (data.length > 0) { %>
+        <h1>Tus productos</h1>
+        <table style="width:50%">
+            <tr>
+                <th id="id">ID</th>
+                <th id="nombreProducto">Producto</th>
+                <th id="precioProducto">Precio</th>
+                <th id="precioProducto">Imagen</th>
+            </tr>
+            <tbody id="tableBody">
+                <% data.forEach(producto=> { %>
+                    <tr>
+                        <td>
+                            <%= producto.id %>
+                        </td>
+                        <td>
+                            <%= producto.title %>
+                        </td>
+                        <td>
+                            <%= producto.price %>
+                        </td>
+                        <td>
+                            <img src=<%= producto.img %> width="100px"> 
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table> 
+    <% } else {%>
+        <h1>Tus productos</h1>
+        <p>No hay datos</p>
+    <% } %>
+</body>
+</html>
