@@ -1,7 +1,7 @@
+const product = document.querySelector('#productsForm');
 const title = document.querySelector('#title');
 const price = document.querySelector('#price');
 const img = document.querySelector('#img');
-const product = document.querySelector('#productsForm');
 const tableBody = document.querySelector('#tableBody');
 const chat = document.querySelector('#messagesForm');
 const email = document.querySelector('#email');
@@ -18,11 +18,12 @@ product.addEventListener('submit', (e) =>{
         price: price.value,
         img: img.value
     }
+
     socket.emit('addProduct', newProduct)
 
-        title.value = ""
-        price.value = ""
-        img.value = ""
+        title.value = " "
+        price.value = " "
+        img.value = " "
 });
 
 const addProductToTable = (data) =>{
@@ -75,10 +76,10 @@ const addNewMessage = (data) =>{
     const messageTime = document.createElement('span');
     const messageText = document.createElement('p');
 
-    messageContainer.setAttribute('class', 'message');
-    messageEmail.setAttribute('class', 'meta');
+    // messageContainer.setAttribute('class', 'message');
+    // messageEmail.setAttribute('class', 'meta');
     messageEmail.innerText = data.email;
-    messageText.setAttribute('class', 'text');
+    // messageText.setAttribute('class', 'text');
     messageText.innerText = data.msg;
     messageTime.innerText = data.time;
 

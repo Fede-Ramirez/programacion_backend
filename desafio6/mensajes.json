@@ -1,0 +1,22 @@
+[
+	{
+		"email": "ejemplo@gmail.com",
+		"msg": "Probando",
+		"time": "12:19 am"
+	},
+	{
+		"email": "ejemplo@gmail.com",
+		"msg": "Buenas!",
+		"time": "4:12 pm"
+	},
+	{
+		"email": "ibelicesol@gmail.com",
+		"msg": "Buenas noches!",
+		"time": "8:05 pm"
+	},
+	{
+		"email": "fede.ramirez.-@hotmail.com",
+		"msg": "Que tarde que es!",
+		"time": "11:53 pm"
+	}
+]

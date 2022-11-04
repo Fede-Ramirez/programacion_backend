@@ -9,7 +9,7 @@
     <form method="POST" action="/api/productos" id="productsForm">
         <div>
             <label for="producto">Producto:</label>
-            <input type="text" id= "title " name="title" placeholder="Ingrese un producto" required>
+            <input type="text" id= "title" name="title" placeholder="Ingrese un producto" required>
         </div>
         <div>
             <label for="precio">Precio: </label>
@@ -26,6 +26,6 @@
     <%- include ('productos.ejs') %>
     <%- include ('chat.ejs') %>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="../public/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const mainRouter = require('../routes');
+const { ProductsController } = require('../controller/productos');
 
 //Configuración básica
 const app = express();
@@ -24,8 +25,8 @@ app.set('views', viewsPath );
 // Renderizado
 app.get('/',async (req, res, next) =>{
     try{
-        const productosJSON = await readFile('productos');
-        const mensajesJSON = await readFile('mensajes');
+        const productosJSON = await ProductsController.obtenerJSON('productos');
+        const mensajesJSON = await ProductsController.obtenerJSON('mensajes');
         res.render('formulario', {productosJSON, mensajesJSON});
     }catch (err){
         next(err);

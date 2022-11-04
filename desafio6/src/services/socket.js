@@ -13,23 +13,29 @@ const initWsServer = (server) =>{
         socket.on('addProduct', async (product) =>{
             try{
                 product.price = Number(product.price);
-    
+
                 ProductsController.validateBody(product);
-    
-                const productosJson = await ProductsController.obtenerJSON('productos');
+                
+                let id;
+
+                const productosJSON = await ProductsController.obtenerJSON('productos');
+
+                if(productosJSON.length){
+                    id = productosJSON[productosJSON.length -1].id +1;
+                }
     
                 const newProduct = {
-                id: uuidv4(),
-                title: product.title,
-                price: product.price,
-                thumbnail: product.thumbnail,
+                    title: product.title,
+                    price: parseInt(product.price),
+                    img: product.img,
+                    id: id
                 };
     
-                dataJson.push(newProduct);
+                productosJSON.push(newProduct);
     
-                io.emit('addTable', productosJson[productosJson.length-1])
+                io.emit('addTable', productosJSON[productosJSON.length-1])
     
-                await ProductsController.actualizarArchivo(productosJson,'productos');
+                await ProductsController.actualizarArchivo(productosJSON,'productos');
 
             }catch (error){
                 console.log(error);
@@ -44,7 +50,7 @@ const initWsServer = (server) =>{
                     msg: message.msg,
                     time: moment().format('h:mm a')
                 }
-                messageJson.push(newMessage)
+                mensajesJSON.push(newMessage)
     
                 io.emit('renderMessage', mensajesJSON[mensajesJSON.length-1])
     
