@@ -76,10 +76,7 @@ const addNewMessage = (data) =>{
     const messageTime = document.createElement('span');
     const messageText = document.createElement('p');
 
-    // messageContainer.setAttribute('class', 'message');
-    // messageEmail.setAttribute('class', 'meta');
     messageEmail.innerText = data.email;
-    // messageText.setAttribute('class', 'text');
     messageText.innerText = data.msg;
     messageTime.innerText = data.time;
 
