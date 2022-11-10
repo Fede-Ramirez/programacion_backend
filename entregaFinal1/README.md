@@ -16,7 +16,7 @@ Ambos funcionan a través de los controllers. Los cuales son dos:
 1. Products controller: conformado por la clase ProductsAPI, compuesta de diversos métodos que serán utilizados en los endpoints para hacer peticiones respecto a los productos que se tienen. Utilizado fundamentalmente en 'api/products'
 2. Cart controller: conformado por la clase CartAPI, compuesta de diversos métodos que serán utilizados en los endpoints para hacer peticiones respecto a los carritos y sus respectivos productos que se tengan. Utilizado fundamentalmente en 'api/cart'
 
-### router base 'api/products'
+### Router base 'api/products'
 
 Este router contiene cinco funcionalidades o endpoints:
 
@@ -26,7 +26,7 @@ Este router contiene cinco funcionalidades o endpoints:
 4. PUT('/:id'): este endpoint trabaja con el método del controller findByIdAndUpdate, que se encarga de buscar un producto dado un ID particular ingresado. Primero que nada, a través del método exists, se valida que el producto exista, en caso de que no se arrojará un mensaje de error. Si existe, se procede a traer todos los productos con getAll, para realizar un método de array llamado findIndex, que devolverá el índice de un producto según el ID ingresado. Se creará un molde para modificar el producto cuyo índice sea el que se devolvió. Se podrán modificar todos los datos con sus respectivas validaciones, salvo el ID obviamente. Luego, mediante el método de arrays splice, se elimina el viejo producto y se lo reemplaza por el producto actualizado en el JSON gracias a actualizarArchivo.
 5. DELETE('/:id): utiliza el método del controller findByIdAndDelete, el cual lee el archivo JSON y a través del método splice se elimina el producto cuyo ID fue ingresado como parámetro. Una vez eliminado, el JSON se actualiza mediante el método correspondiente. 
 
-### base 'api/cart'
+### Router base 'api/cart'
 
 Este router contiene 5 funcionalidades o endpoints:
 
@@ -43,3 +43,11 @@ Se ha implementado una variable booleana que tendrá funciones de accesibilidad.
 ## Rutas no implementadas
 
 A través de un middleware, se arroja un objeto de error en caso de ingresar una ruta que no haya sido creada en los routers correspondientes. 
+
+## Tecnologías y librerías utilizadas
+
+1. Node JS
+2. Express
+3. Moment
+4. Filesystem
+
