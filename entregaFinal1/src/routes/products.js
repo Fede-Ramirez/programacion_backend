@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { ProductsController } = require('../controllers/products');
 const router = Router();
-const checkAdministrator = true;
+const checkAdministrator = false;
 
 router.get('/', async (req, res, next) => {
     try{
@@ -31,6 +31,7 @@ router.post('/', async (req, res, next) => {
     try{
         if(!checkAdministrator)
         return res.status(401).json({
+            error:-1,
             msg: 'No tienes autorización para agregar un producto',
         })
 
@@ -48,6 +49,7 @@ router.put('/:id', async (req, res, next) => {
     try{
         if(!checkAdministrator)
         return res.status(401).json({
+            error:-1,
             msg: 'No tienes autorización para modificar un producto',
         })
 
@@ -67,6 +69,7 @@ router.delete('/:id', async (req, res, next) => {
     try{
         if(!checkAdministrator)
         return res.status(401).json({
+            error:-1,
             msg: 'No tienes autorización para eliminar un producto',
         })
 

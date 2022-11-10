@@ -1,5 +1,6 @@
 const filesystem = require('fs');
 const moment = require('moment');
+const path = require('path');
 
 class CartsAPI {
     async validateExistFile() {
@@ -22,20 +23,20 @@ class CartsAPI {
                         {
                             id: 1,
                             timestamp: "09-11-22 19:43:30",
-                            title: "Remera",
-                            description: "Remera blanca",
+                            title: "Camiseta",
+                            description: "Camiseta argentina",
                             code: "1A",
-                            photo:"https://i.pinimg.com/564x/db/ba/d5/dbbad5e8b6072dfc42a5096fc8052160.jpg",
+                            photo:"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhttp2.mlstatic.com%2Fcamisa-argentina-adidas-modelo-2010-D_NQ_NP_426611-MLB20596402796_022016-F.jpg&f=1&nofb=1&ipt=89188d63c75849a0f2451507c0573dc0be3225ab2de232e59650e90b22c4df5a&ipo=images",
                             price: 2000,
                             stock: 10
                         },
                         {
                             id: 2,
                             timestamp: "09-11-22 19:44:15",
-                            title: "Camisas",
+                            title: "Camisa",
                             description: "Camisa negra",
                             code: "1B",
-                            photo:"https://i.pinimg.com/564x/db/ba/d5/dbbad5e8b6072dfc42a5096fc8052160.jpg",
+                            photo:"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdhb3yazwboecu.cloudfront.net%2F335%2Fcamisa-negra-algodon-sols-17000_l.jpg&f=1&nofb=1&ipt=871791baa0fb6e7f37ab46530fdd41c5e90ced1764a9d89b4dd4cb6fd589e08c&ipo=images",
                             price: 3000,
                             stock: 15
                         }
@@ -74,10 +75,10 @@ class CartsAPI {
     async createNewCart() {
         let id;
 
-        const carts = await this.getAllProductsInCart();
+        const carts = await this.getAllCartProducts();
 
         if(carts.length){
-            id = productos[productos.length -1].id +1;
+            id = carts[carts.length -1].id +1;
         }
 
         const newCart = {
@@ -93,21 +94,15 @@ class CartsAPI {
         return carts
     }
 
-    async getCartById() {
-        const cartProducts = await this.getAllProductsInCart();
-        const index = cartProducts.findIndex((cart) => cart.id === id);
-        if (index < 0) {
-            const cartExists = {
-            index: index,
-            msg: "El carrito solicitado no existe!",
-            };
-            throw productExists;
-        }
-        return productsCart[index];
+    async getCartById(id) {
+        const cartProducts = await this.getAllCartProducts();
+        const index = cartProducts.find((cart) => cart.id == id);
+        if (!index) throw new Error('No existe el carrito solicitado');
+        return index;
     }
 
     async addNewProductToCart(cartId, product) {
-        const carts = await this.getAllProductsInCart();
+        const carts = await this.getAllCartProducts();
 
         const index = carts.findIndex((cart) => cart.id === cartId)
 
@@ -119,9 +114,9 @@ class CartsAPI {
     } 
 
     async deleteCart(id) {
-        const carts = await this.getAllProductsInCart();
+        const carts = await this.getAllCartProducts();
 
-        const index = carritos.findIndex((cart) => cart.id === id);
+        const index = carts.findIndex((cart) => cart.id === id);
 
         if (index < 0) {
             throw "No se ha encontrado el carrito solicitado!";
@@ -133,7 +128,7 @@ class CartsAPI {
     }
 
     async deleteProductInCart(cartId, productId) {
-        const carts = await this.getAllProductsInCart();
+        const carts = await this.getAllCartProducts();
 
         const cartIndex = carts.findIndex((cart) => cart.id === cartId);
 
