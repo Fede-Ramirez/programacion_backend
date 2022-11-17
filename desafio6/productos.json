@@ -40,5 +40,11 @@
 		"price": 300000,
 		"img": "https://cdn2.iconfinder.com/data/icons/i-love-apple-1/512/imac2.png",
 		"id": 7
+	},
+	{
+		"title": "Fede",
+		"price": 21,
+		"img": "Image2",
+		"id": 8
 	}
 ]
