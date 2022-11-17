@@ -1,8 +1,13 @@
 const server = require('./services/server');
+const { initProductsDatabase } = require('./services/database');
 
-const port = 8080;
+const init = async () => {
+    await initProductsDatabase();
+    const port = 8080;
 
-server.listen(port, () => {
-    console.log(`servidor escuchando en el puerto ${port}`);
-})
+    server.listen(port, () => {
+        console.log(`servidor escuchando en el puerto ${port}`);
+    })
+}
 
+init();

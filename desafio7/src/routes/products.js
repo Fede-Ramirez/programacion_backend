@@ -1,10 +1,22 @@
 const { Router } = require('express');
-const { ProductsController } = require('../controllers/productos');
+const { getAllProducts, createProduct } = require('../controllers/products');
 const router = Router();
 
-router.get('/', async (req, res)=>{
-    res.render('formulario')
-});
+// router.get('/', async (req, res)=>{
+//     res.render('formulario')
+// });
+
+router.get('/', async (req, res, next) => {
+    try {
+        const data = await getAllProducts();
+        res.json({
+            msg: 'get all products',
+            data
+        })
+    } catch (err) {
+        next(err);
+    }
+})
 
 router.get('/:id', async (req, res, next) => {
     try{
@@ -21,9 +33,13 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try{
-        const { body } = req;
-        const data = await ProductsController.save(body);   
-        res.redirect('/')
+        const { title, price, image } = req.body;
+        const newProduct = await createProduct(title, price, image);    
+        res.json({
+            msg: 'post a product',
+            newProduct
+        })
+        // res.redirect('/')
     } catch (err) {
         next(err);
     }
